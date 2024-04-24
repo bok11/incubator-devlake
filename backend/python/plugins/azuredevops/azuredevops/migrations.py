@@ -205,3 +205,9 @@ def add_queue_time_field_in_tool_azuredevops_builds(b: MigrationScriptBuilder):
     table = '_tool_azuredevops_builds'
     b.add_column(table, 'display_title', 'TEXT')
     b.add_column(table, 'url', 'TEXT')
+
+@migration(20240424133000, name="Update url column in _tool_azuredevops_builds")
+def update_url_column_definition(b: MigrationScriptBuilder):
+    table = '_tool_azuredevops_builds'
+    b.execute(f'ALTER TABLE {table} MODIFY COLUMN url VARCHAR(500)', Dialect.MYSQL)
+    b.execute(f'ALTER TABLE {table} MODIFY COLUMN url VARCHAR(500)', Dialect.POSTGRESQL)
